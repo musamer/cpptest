@@ -1,0 +1,929 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>اختبار برمجة – 100 سؤال</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0b1220;
+            --card: #111a2e;
+            --muted: #9fb0d0;
+            --text: #e9efff;
+            --accent: #6ea8fe;
+            --ok: #3ddc97;
+            --warn: #ffcc66;
+            --danger: #ff6b6b;
+            --border: rgba(255, 255, 255, .08);
+            --input-bg: rgba(255, 255, 255, .05);
+            --header-bg: rgba(7, 11, 20, .85);
+            --btn-bg: rgba(255, 255, 255, .06);
+            --btn-hover: rgba(255, 255, 255, .10);
+            --shadow: 0 20px 60px rgba(0, 0, 0, .35);
+        }
+
+        [data-theme="light"] {
+            --bg: #f8f9fa;
+            --card: #ffffff;
+            --muted: #6c757d;
+            --text: #212529;
+            --accent: #0d6efd;
+            --ok: #198754;
+            --warn: #ffc107;
+            --danger: #dc3545;
+            --border: #dee2e6;
+            --input-bg: #f8f9fa;
+            --header-bg: rgba(255, 255, 255, .85);
+            --btn-bg: #e9ecef;
+            --btn-hover: #dee2e6;
+            --shadow: 0 4px 12px rgba(0, 0, 0, .08);
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: "IBM Plex Sans Arabic", system-ui, -apple-system, sans-serif;
+            transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: var(--header-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .wrap {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 16px;
+        }
+
+        .row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .brand {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .badge {
+            font-size: 12px;
+            padding: 4px 10px;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            color: var(--muted);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1.2fr .8fr;
+            gap: 16px;
+            padding: 16px 0;
+        }
+
+        @media (max-width: 960px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: var(--shadow);
+        }
+
+        .muted {
+            color: var(--muted);
+        }
+
+        .btn {
+            cursor: pointer;
+            border: 1px solid var(--border);
+            background: var(--btn-bg);
+            color: var(--text);
+            padding: 10px 12px;
+            border-radius: 12px;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .btn:hover {
+            background: var(--btn-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn.primary {
+            border-color: rgba(110, 168, 254, .35);
+            background: rgba(110, 168, 254, .16);
+        }
+
+        .btn.primary:hover {
+            background: rgba(110, 168, 254, .22);
+        }
+
+        .btn.danger {
+            border-color: rgba(255, 107, 107, .35);
+            background: rgba(255, 107, 107, .12);
+        }
+
+        .btn.small {
+            padding: 6px 10px;
+            border-radius: 10px;
+            font-size: 12px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            background: var(--input-bg);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 12px 14px;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(110, 168, 254, 0.15);
+        }
+
+        textarea {
+            min-height: 160px;
+            resize: vertical;
+            line-height: 1.7;
+        }
+
+        .qtitle {
+            font-size: 16px;
+            margin: 0 0 8px;
+        }
+
+        .qmeta {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin: 10px 0;
+        }
+
+        .pill {
+            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: 999px;
+            border: 1px solid var(--border);
+            color: var(--muted);
+        }
+
+        .pill.type {
+            border-color: rgba(110, 168, 254, .35);
+            color: #cfe0ff;
+        }
+
+        .pill.done {
+            border-color: rgba(61, 220, 151, .35);
+            color: #bff3de;
+        }
+
+        .pill.todo {
+            border-color: rgba(255, 204, 102, .35);
+            color: #ffe5b2;
+        }
+
+        pre {
+            background: var(--input-bg);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 12px;
+            overflow: auto;
+            direction: ltr;
+            text-align: left;
+            margin: 10px 0;
+        }
+
+        .progress {
+            height: 10px;
+            background: var(--border);
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        .progress>div {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--accent), var(--ok));
+        }
+
+        .list {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 8px;
+        }
+
+        @media (max-width: 960px) {
+            .list {
+                grid-template-columns: repeat(6, 1fr);
+            }
+        }
+
+        @media (max-width: 520px) {
+            .list {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .num {
+            border-radius: 12px;
+            padding: 10px 0;
+            text-align: center;
+            border: 1px solid var(--border);
+            background: var(--input-bg);
+            cursor: pointer;
+            user-select: none;
+            font-size: 13px;
+            transition: all 0.2s ease;
+        }
+
+        .num:hover {
+            border-color: var(--muted);
+            transform: scale(1.05);
+        }
+
+        .num.active {
+            border-color: rgba(110, 168, 254, .45);
+            background: rgba(110, 168, 254, .14);
+        }
+
+        .num.answered {
+            border-color: rgba(61, 220, 151, .45);
+        }
+
+        .num.flag {
+            outline: 2px solid rgba(255, 204, 102, .55);
+        }
+
+        .topbar {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .timer {
+            font-variant-numeric: tabular-nums;
+        }
+
+        .footerNote {
+            font-size: 12px;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        a {
+            color: var(--accent);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="wrap">
+            <div class="topbar">
+                <div class="brand">
+                    <div
+                        style="width:34px;height:34px;border-radius:12px;background:rgba(110,168,254,.22);display:grid;place-items:center;border:1px solid rgba(110,168,254,.35); color: var(--accent)">
+                        C++</div>
+                    <div>
+                        <div style="font-weight:700">اختبار برمجة – 100 سؤال</div>
+                        <div class="muted" style="font-size:12px">مقالي • تصحيح كود • ما ناتج التنفيذ</div>
+                    </div>
+                    <span class="badge" id="saveState">حفظ تلقائي: مفعل</span>
+                </div>
+
+                <div class="row">
+
+                    <button class="btn small" id="themeBtn">🌓 المظهر</button>
+                    <button class="btn small" id="toggleTimerBtn">⏱️ تفعيل المؤقت</button>
+                    <span class="badge timer" id="timerBox" style="display:none">00:00:00</span>
+                    <button class="btn small" id="exportBtn">تصدير الإجابات JSON</button>
+                    <button class="btn small danger" id="resetBtn">مسح كل الإجابات</button>
+                </div>
+            </div>
+
+            <div style="margin-top:12px">
+                <div class="row" style="justify-content:space-between; align-items:center">
+                    <div style="flex:1">
+                        <div class="progress">
+                            <div id="bar"></div>
+                        </div>
+                        <div class="muted" style="font-size:12px;margin-top:8px" id="stats">—</div>
+                    </div>
+                    <div style="width:280px">
+                        <select id="filter">
+                            <option value="all">عرض كل الأسئلة</option>
+                            <option value="essay">المقالية فقط</option>
+                            <option value="fix">تصحيح كود فقط</option>
+                            <option value="result">ما ناتج التنفيذ فقط</option>
+                            <option value="unanswered">غير المُجابة</option>
+                            <option value="flagged">المعلّمة ⭐</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="wrap">
+        <div class="grid">
+            <section class="card" id="questionCard">
+                <div class="row" style="justify-content:space-between; align-items:flex-start">
+                    <div>
+                        <h3 class="qtitle" id="qTitle">—</h3>
+                        <div class="qmeta" id="qMeta"></div>
+                    </div>
+                    <div class="row">
+                        <button class="btn small" id="flagBtn">⭐ تعليم</button>
+                        <button class="btn small" id="prevBtn">السابق</button>
+                        <button class="btn small primary" id="nextBtn">التالي</button>
+                    </div>
+                </div>
+
+                <div id="qBody"></div>
+
+                <div style="margin-top:12px">
+                    <label class="muted" style="display:block;margin-bottom:6px">إجابتك</label>
+                    <textarea id="answer" placeholder="اكتب الإجابة هنا... (الحفظ تلقائي)"></textarea>
+                    <div class="row" style="justify-content:space-between;margin-top:10px">
+                        <span class="footerNote" id="autosaveNote">يتم الحفظ تلقائيًا عند الكتابة.</span>
+                        <div class="row">
+                            <button class="btn small primary" id="gradeBtn">🤖 تصحيح </button>
+                            <button class="btn small" id="clearOneBtn">مسح إجابة هذا السؤال</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="aiFeedback" class="card"
+                    style="margin-top:20px; display:none; border-color:var(--accent); background:rgba(110,168,254,.08)">
+                    <h4 style="margin-top:0; color:var(--accent)">نتائج التصحيح:</h4>
+                    <div id="aiResultContent"></div>
+                </div>
+            </section>
+
+            <aside class="card">
+                <div class="row" style="justify-content:space-between; align-items:center">
+                    <div style="font-weight:700">التنقل السريع</div>
+                    <span class="badge" id="countBadge">—</span>
+                </div>
+                <div style="margin-top:12px" class="list" id="nav"></div>
+
+                <div style="margin-top:14px" class="footerNote">
+                    <div>نصائح تشغيلية:</div>
+                    <ul>
+                        <li>اضغط رقم السؤال للتنقل.</li>
+                        <li>⭐ لتعليم سؤال للمراجعة.</li>
+                        <li>التصدير بصيغة JSON مناسب للرفع إلى نظامك لاحقًا.</li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+
+
+    <script>
+        // ====== بنك الأسئلة (يمكنك تعديله/استبداله) ======
+        // النوع: essay | fix | result
+        const QUESTIONS = [
+            // 1–10 (بنية البرنامج)
+            { id: 1, type: "essay", topic: "Hello World وبنية البرنامج", text: "اشرح الغرض من برنامج Hello World ولماذا يُستخدم كنقطة انطلاق في تعلم أي لغة برمجة." },
+            { id: 2, type: "essay", topic: "Hello World وبنية البرنامج", text: "ما مكونات أي برنامج برمجي قياسي؟ وضّح دور كل مكوّن." },
+            { id: 3, type: "fix", topic: "Hello World وبنية البرنامج", text: "صحّح الخطأ في الكود التالي واذكر سبب الخطأ:", code: `cpp\ninclude <iostream>\nint main {\n    cout << "Hello World";\n}` },
+            { id: 4, type: "result", topic: "Hello World وبنية البرنامج", text: "ما ناتج تنفيذ الكود التالي؟", code: `cpp\n#include <iostream>\nusing namespace std;\nint main() {\n    cout << "Hello";\n    cout << "World";\n}` },
+            { id: 5, type: "essay", topic: "Hello World وبنية البرنامج", text: "ما الفرق بين main() وأي دالة أخرى؟" },
+            { id: 6, type: "essay", topic: "Hello World وبنية البرنامج", text: "هل يمكن أن يعمل البرنامج بدون دالة main؟ فسّر." },
+            { id: 7, type: "essay", topic: "Hello World وبنية البرنامج", text: "اذكر أهمية الأقواس {} في بنية البرنامج." },
+            { id: 8, type: "essay", topic: "Hello World وبنية البرنامج", text: "ما المشكلة في هذا الكود من ناحية منطق التنفيذ؟", code: `cpp\nint main() {\n    cout << "Start";\n    return 0;\n    cout << "End";\n}` },
+            { id: 9, type: "result", topic: "Hello World وبنية البرنامج", text: "ما ناتج التنفيذ؟ ولماذا؟", code: `cpp\ncout << "Hello\\nWorld";` },
+            { id: 10, type: "essay", topic: "Hello World وبنية البرنامج", text: "اكتب برنامجًا بسيطًا يطبع اسم المستخدم وسنة ميلاده." },
+
+            // 11–25 (المتغيرات والأنواع)
+            { id: 11, type: "essay", topic: "المتغيرات والأنواع", text: "عرّف المتغير برمجيًا، وما الفرق بين التعريف والتهيئة؟" },
+            { id: 12, type: "fix", topic: "المتغيرات والأنواع", text: "ما المشكلة في الكود التالي؟ وكيف تعالجها؟", code: `cpp\nint x;\ncout << x;` },
+            { id: 13, type: "result", topic: "المتغيرات والأنواع", text: "ما ناتج التنفيذ؟", code: `cpp\nint x = 5;\nx = x + 2;\ncout << x;` },
+            { id: 14, type: "essay", topic: "المتغيرات والأنواع", text: "قارن بين int و float من حيث التخزين والدقة ومتى تفضّل كل واحد." },
+            { id: 15, type: "fix", topic: "المتغيرات والأنواع", text: "صحّح الكود التالي:", code: `cpp\nint 2x = 10;` },
+            { id: 16, type: "result", topic: "المتغيرات والأنواع", text: "ما ناتج التنفيذ؟ ولماذا؟", code: `cpp\ndouble x = 5 / 2;\ncout << x;` },
+            { id: 17, type: "essay", topic: "المتغيرات والأنواع", text: "لماذا يُعد اختيار نوع البيانات قرارًا مهمًا في تصميم الأنظمة؟ اذكر مثالًا واقعيًا." },
+            { id: 18, type: "essay", topic: "المتغيرات والأنواع", text: "ما الفرق بين char و string؟ ومتى تستخدم كلًا منهما؟" },
+            { id: 19, type: "result", topic: "المتغيرات والأنواع", text: "ما ناتج التنفيذ؟", code: `cpp\nchar c = 65;\ncout << c;` },
+            { id: 20, type: "essay", topic: "المتغيرات والأنواع", text: "متى تستخدم long long بدل int؟ أعط مثالًا برقم قد يسبب overflow." },
+            { id: 21, type: "fix", topic: "المتغيرات والأنواع", text: "صحّح التحويل في المثال التالي واذكر أثره:", code: `cpp\nfloat x = 10.5;\nint y = x;` },
+            { id: 22, type: "essay", topic: "المتغيرات والأنواع", text: "اشرح مفهوم التحويل الضمني (Implicit Casting) ومتى يكون خطرًا." },
+            { id: 23, type: "result", topic: "المتغيرات والأنواع", text: "ما ناتج التنفيذ؟", code: `cpp\nint x = 3;\ncout << x++;` },
+            { id: 24, type: "result", topic: "المتغيرات والأنواع", text: "ما ناتج التنفيذ؟", code: `cpp\nint x = 3;\ncout << ++x;` },
+            { id: 25, type: "essay", topic: "المتغيرات والأنواع", text: "لماذا يُعد سوء إدارة المتغيرات سببًا رئيسيًا للأخطاء البرمجية؟" },
+
+            // 26–32 (الثوابت)
+            { id: 26, type: "essay", topic: "الثوابت", text: "ما الفرق بين المتغير والثابت؟" },
+            { id: 27, type: "fix", topic: "الثوابت", text: "صحّح الكود التالي:", code: `cpp\nconst int x;\nx = 10;` },
+            { id: 28, type: "essay", topic: "الثوابت", text: "لماذا يُنصح باستخدام الثوابت في الأنظمة الكبيرة؟" },
+            { id: 29, type: "result", topic: "الثوابت", text: "ما ناتج التنفيذ؟", code: `cpp\nconst int x = 5;\ncout << x * 2;` },
+            { id: 30, type: "essay", topic: "الثوابت", text: "قارن بين const و #define من حيث الأمان والوضوح." },
+            { id: 31, type: "essay", topic: "الثوابت", text: "هل يمكن تعريف ثابت داخل دالة؟ ولماذا؟" },
+            { id: 32, type: "essay", topic: "الثوابت", text: "أعط مثالًا عمليًا لاستخدام الثوابت في نظام مالي أو محاسبي." },
+
+            // 33–45 (العوامل)
+            { id: 33, type: "essay", topic: "العوامل", text: "صنّف أنواع العوامل (Arithmetic/Relational/Logical/Assignment) مع مثال لكل نوع." },
+            { id: 34, type: "result", topic: "العوامل", text: "ما ناتج التنفيذ؟", code: `cpp\ncout << 10 % 3;` },
+            { id: 35, type: "fix", topic: "العوامل", text: "اشرح الخطأ في الشرط التالي وكيف تصلحه:", code: `cpp\nif (x = 5)` },
+            { id: 36, type: "result", topic: "العوامل", text: "ما ناتج التنفيذ؟", code: `cpp\nint x = 5;\ncout << (x > 3 && x < 10);` },
+            { id: 37, type: "essay", topic: "العوامل", text: "ما الفرق بين == و =؟ ولماذا الخطأ بينهما شائع؟" },
+            { id: 38, type: "result", topic: "العوامل", text: "ما ناتج التنفيذ؟", code: `cpp\ncout << !(5 > 3);` },
+            { id: 39, type: "fix", topic: "العوامل", text: "صحّح الشرط التالي واذكر السبب:", code: `cpp\nif (x > 5 & x < 10)` },
+            { id: 40, type: "result", topic: "العوامل", text: "ما ناتج التنفيذ؟", code: `cpp\nint x = 5;\nx += 3;\ncout << x;` },
+            { id: 41, type: "essay", topic: "العوامل", text: "لماذا تُعد العوامل المنطقية أساس اتخاذ القرار البرمجي؟ اذكر مثال قرار أعمال." },
+            { id: 42, type: "result", topic: "العوامل", text: "ما ناتج التنفيذ؟", code: `cpp\ncout << (10 > 5 || 3 > 10);` },
+            { id: 43, type: "essay", topic: "العوامل", text: "ما الفرق بين && و &؟ ومتى يؤدي استخدام الخاطئ إلى Bug صعب؟" },
+            { id: 44, type: "essay", topic: "العوامل", text: "اشرح لماذا الشرط التالي غالبًا خاطئ منطقيًا:", code: `cpp\nif (x > 0 || x < 100)` },
+            { id: 45, type: "essay", topic: "العوامل", text: "متى يكون استخدام العامل الثلاثي ?: مناسبًا بدل if؟" },
+
+            // 46–55 (الإدخال/الإخراج)
+            { id: 46, type: "essay", topic: "الإدخال والإخراج", text: "ما الفرق بين cin و cout؟" },
+            { id: 47, type: "fix", topic: "الإدخال والإخراج", text: "صحّح الكود التالي:", code: `cpp\ncin >> "age";` },
+            { id: 48, type: "result", topic: "الإدخال والإخراج", text: "إذا أدخل المستخدم 7 ما الناتج؟", code: `cpp\nint x;\ncin >> x;\ncout << x * 2;` },
+            { id: 49, type: "fix", topic: "الإدخال والإخراج", text: "اشرح الخطأ المنطقي وصححه:", code: `cpp\nint age;\ncin >> age;\nif (age = 18)` },
+            { id: 50, type: "essay", topic: "الإدخال والإخراج", text: "لماذا يُعد التحقق من الإدخال أمرًا حاسمًا؟ اذكر مثالًا لهجوم أو خطأ إدخال." },
+            { id: 51, type: "essay", topic: "الإدخال والإخراج", text: "اكتب كودًا يطلب اسم المستخدم ويطبعه." },
+            { id: 52, type: "essay", topic: "الإدخال والإخراج", text: "ما الفرق بين getline و cin؟ ومتى يحدث التعارض بينهما؟" },
+            { id: 53, type: "result", topic: "الإدخال والإخراج", text: "ما ناتج التنفيذ؟", code: `cpp\ncout << "5 + 5 = " << 5 + 5;` },
+            { id: 54, type: "essay", topic: "الإدخال والإخراج", text: "ما مشكلة الاعتماد على cin >> name لقراءة اسم كامل من كلمتين؟ وكيف تعالجها؟" },
+            { id: 55, type: "essay", topic: "الإدخال والإخراج", text: "كيف يؤثر الإدخال الخاطئ على استقرار النظام؟ (من منظور تشغيل وإدارة مخاطر)" },
+
+            // 56–75 (التحكم في المسار)
+            { id: 56, type: "essay", topic: "التحكم في المسار", text: "اشرح مفهوم Flow Control ولماذا هو قلب المنطق البرمجي." },
+            { id: 57, type: "result", topic: "if", text: "ما ناتج التنفيذ؟", code: `cpp\nint x = 5;\nif (x > 3)\n    cout << "A";\nelse\n    cout << "B";` },
+            { id: 58, type: "fix", topic: "if", text: "صحّح الكود التالي:", code: `cpp\nif x > 5 {\n    cout << "Yes";\n}` },
+            { id: 59, type: "result", topic: "while", text: "ما ناتج التنفيذ؟", code: `cpp\nint i = 0;\nwhile (i < 3) {\n    cout << i;\n    i++;\n}` },
+            { id: 60, type: "essay", topic: "while/for", text: "متى تستخدم while بدل for؟ أعط مثالًا." },
+            { id: 61, type: "essay", topic: "while", text: "اشرح خطر الحلقة اللانهائية في الأنظمة التشغيلية، وكيف تمنعها." },
+            { id: 62, type: "result", topic: "for", text: "ما ناتج التنفيذ؟", code: `cpp\nfor (int i = 1; i <= 3; i++)\n    cout << i;` },
+            { id: 63, type: "essay", topic: "while", text: "ما الفرق بين do-while و while؟ ومتى يفيد do-while؟" },
+            { id: 64, type: "result", topic: "do-while", text: "ما ناتج التنفيذ؟", code: `cpp\nint i = 5;\ndo {\n    cout << i;\n    i++;\n} while (i < 5);` },
+            { id: 65, type: "essay", topic: "الحلقات", text: "لماذا تُعد الحلقات غير المنتهية خطرًا تشغيليًا؟ أعط مثال أثرها على الموارد." },
+            { id: 66, type: "fix", topic: "for", text: "اشرح المشكلة وصحح الكود:", code: `cpp\nfor (int i = 0; i < 10; )\n    cout << i;` },
+            { id: 67, type: "result", topic: "for", text: "ما ناتج التنفيذ؟", code: `cpp\nfor (int i = 0; i < 5; i += 2)\n    cout << i;` },
+            { id: 68, type: "essay", topic: "Nested Loops", text: "اشرح مفهوم الحلقات المتداخلة ومتى تصبح عبئًا على الأداء." },
+            { id: 69, type: "result", topic: "Nested Loops", text: "ما ناتج التنفيذ؟", code: `cpp\nfor(int i=1;i<=2;i++)\n  for(int j=1;j<=2;j++)\n    cout << i << j;` },
+            { id: 70, type: "essay", topic: "الأداء", text: "متى تصبح الحلقات عبئًا على الأداء؟ اربط ذلك بالتعقيد الزمني." },
+            { id: 71, type: "essay", topic: "break/continue", text: "ما الفرق بين break و continue؟" },
+            { id: 72, type: "result", topic: "break", text: "ما ناتج التنفيذ؟", code: `cpp\nfor(int i=0;i<5;i++){\n  if(i==3) break;\n  cout<<i;\n}` },
+            { id: 73, type: "result", topic: "continue", text: "ما ناتج التنفيذ؟", code: `cpp\nfor(int i=0;i<5;i++){\n  if(i==3) continue;\n  cout<<i;\n}` },
+            { id: 74, type: "essay", topic: "منطق الأعمال", text: "لماذا يُعد التحكم في التدفق أساس منطق الأعمال؟ أعط مثال قرار (قبول/رفض/تحقق)." },
+            { id: 75, type: "essay", topic: "الهندسة", text: "متى تفضّل إعادة تصميم المنطق بدل إضافة شروط أكثر؟ (Maintainability)" },
+
+            // 76–90 (الدوال ومرئية الأسماء)
+            { id: 76, type: "essay", topic: "الدوال", text: "عرّف الدالة برمجيًا ولماذا هي وحدة بناء أساسية." },
+            { id: 77, type: "essay", topic: "الدوال", text: "ما الفرق بين تعريف الدالة واستدعائها؟" },
+            { id: 78, type: "fix", topic: "الدوال", text: "اشرح المشكلة وصحح الاستخدام:", code: `cpp\nvoid sum(int a, int b);\ncout << sum(2,3);` },
+            { id: 79, type: "result", topic: "الدوال", text: "ما ناتج التنفيذ؟", code: `cpp\nint add(int x,int y){\n  return x+y;\n}\ncout << add(2,3);` },
+            { id: 80, type: "essay", topic: "الدوال", text: "ما فائدة تمرير القيم للدوال؟ ومتى تستخدم تمرير بالمرجع؟" },
+            { id: 81, type: "essay", topic: "Scope", text: "اشرح مفهوم Scope ولماذا يسبب أخطاء عند سوء الفهم." },
+            { id: 82, type: "result", topic: "Scope", text: "ما ناتج التنفيذ؟", code: `cpp\nint x = 10;\nvoid test() {\n  int x = 5;\n  cout << x;\n}\ntest();` },
+            { id: 83, type: "essay", topic: "الأسماء", text: "لماذا يُعد تضارب الأسماء مشكلة خطيرة؟ وما دور namespace في الحل؟" },
+            { id: 84, type: "essay", topic: "Global/Local", text: "ما الفرق بين المتغير المحلي والعالمي؟" },
+            { id: 85, type: "result", topic: "Global", text: "ما ناتج التنفيذ؟", code: `cpp\nint x = 3;\nvoid f() { x = 5; }\nf();\ncout << x;` },
+            { id: 86, type: "essay", topic: "أفضل الممارسات", text: "متى يُنصح بعدم استخدام المتغيرات العالمية؟" },
+            { id: 87, type: "essay", topic: "إعادة الاستخدام", text: "اشرح مفهوم إعادة استخدام الدوال (Reusability) وأثره على التكلفة والصيانة." },
+            { id: 88, type: "essay", topic: "تصميم", text: "اذكر مثالًا على تصميم دوال سيئ يسبب تكرارًا وتعقيدًا، وكيف تعالجه." },
+            { id: 89, type: "essay", topic: "قابلية التوسع", text: "لماذا تُعد الدوال أساس القابلية للتوسع؟ اربط ذلك بمبدأ Single Responsibility." },
+            { id: 90, type: "essay", topic: "Business Function", text: "صمّم دالة (وصفًا أو كودًا) تتحقق من أهلية طالب للقبول بناءً على شروط." },
+
+            // 91–100 (المصفوفات و vector)
+            { id: 91, type: "essay", topic: "المصفوفات وvector", text: "ما الفرق بين المصفوفة و vector؟ ومتى تفضّل كلًا منهما؟" },
+            { id: 92, type: "result", topic: "المصفوفات", text: "ما ناتج التنفيذ؟", code: `cpp\nint a[3] = {1,2,3};\ncout << a[1];` },
+            { id: 93, type: "essay", topic: "المصفوفات", text: "اشرح الخطأ في هذا السطر ولماذا هو خطر:", code: `cpp\nint a[3];\na[3] = 10;` },
+            { id: 94, type: "essay", topic: "المصفوفات", text: "لماذا تُعد المصفوفات ثابتة الحجم خطرًا في الأنظمة المتغيرة المتطلبات؟" },
+            { id: 95, type: "result", topic: "vector", text: "ما ناتج التنفيذ؟", code: `cpp\nvector<int> v = {1,2,3};\ncout << v.size();` },
+            { id: 96, type: "essay", topic: "vector", text: "ما الفرق بين push_back و insert؟ ومتى تستخدم كل واحدة؟" },
+            { id: 97, type: "result", topic: "vector", text: "ما ناتج التنفيذ؟", code: `cpp\nvector<int> v;\nv.push_back(5);\nv.push_back(10);\ncout << v[0];` },
+            { id: 98, type: "essay", topic: "اختيار البنية", text: "متى تختار vector بدل المصفوفة؟ اربط ذلك بالمرونة وإدارة الذاكرة." },
+            { id: 99, type: "essay", topic: "vector", text: "ما المشكلة المحتملة هنا؟ وكيف تمنعها؟", code: `cpp\nvector<int> v;\ncout << v[0];` },
+            { id: 100, type: "essay", topic: "الكفاءة", text: "كيف تؤثر هياكل البيانات على كفاءة النظام ككل؟ أعط مثالًا على قرار تصميم." },
+        ];
+
+        // ====== حالة المستخدم (إجابات/تعليم) ======
+        const STORAGE_KEY = "cpp_exam_v1";
+        let state = loadState();
+
+        function loadState() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                if (!raw) return { answers: {}, flags: {}, timer: { enabled: false, seconds: 0, startedAt: null } };
+                const parsed = JSON.parse(raw);
+                return Object.assign({ answers: {}, flags: {}, timer: { enabled: false, seconds: 0, startedAt: null } }, parsed);
+            } catch {
+                return { answers: {}, flags: {}, timer: { enabled: false, seconds: 0, startedAt: null } };
+            }
+        }
+        function saveState() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+            document.getElementById("saveState").textContent = "حفظ تلقائي: تم";
+            setTimeout(() => document.getElementById("saveState").textContent = "حفظ تلقائي: مفعل", 700);
+        }
+
+        // ====== فلترة + عرض ======
+        const els = {
+            qTitle: document.getElementById("qTitle"),
+            qMeta: document.getElementById("qMeta"),
+            qBody: document.getElementById("qBody"),
+            answer: document.getElementById("answer"),
+            nav: document.getElementById("nav"),
+            bar: document.getElementById("bar"),
+            stats: document.getElementById("stats"),
+            countBadge: document.getElementById("countBadge"),
+            filter: document.getElementById("filter"),
+            flagBtn: document.getElementById("flagBtn"),
+            prevBtn: document.getElementById("prevBtn"),
+            nextBtn: document.getElementById("nextBtn"),
+            clearOneBtn: document.getElementById("clearOneBtn"),
+            exportBtn: document.getElementById("exportBtn"),
+            resetBtn: document.getElementById("resetBtn"),
+            toggleTimerBtn: document.getElementById("toggleTimerBtn"),
+            timerBox: document.getElementById("timerBox"),
+        };
+
+        let filtered = [...QUESTIONS];
+        let idx = 0;
+
+        function applyFilter() {
+            const f = els.filter.value;
+            if (f === "all") filtered = [...QUESTIONS];
+            else if (f === "essay") filtered = QUESTIONS.filter(q => q.type === "essay");
+            else if (f === "fix") filtered = QUESTIONS.filter(q => q.type === "fix");
+            else if (f === "result") filtered = QUESTIONS.filter(q => q.type === "result");
+            else if (f === "unanswered") filtered = QUESTIONS.filter(q => !getAnswer(q.id));
+            else if (f === "flagged") filtered = QUESTIONS.filter(q => !!state.flags[q.id]);
+            idx = 0;
+            renderNav();
+            renderQuestion();
+        }
+
+        function getAnswer(id) { return (state.answers[id] || "").trim(); }
+
+        function renderMeta(q) {
+            const answered = !!getAnswer(q.id);
+            const flagged = !!state.flags[q.id];
+            const typeLabel = q.type === "essay" ? "مقالي" : q.type === "fix" ? "تصحيح كود" : "ما النتيجة؟";
+            const status = answered ? "مُجاب" : "غير مُجاب";
+            const statusClass = answered ? "done" : "todo";
+
+            els.qMeta.innerHTML = `
+      <span class="pill">${q.topic}</span>
+      <span class="pill type">${typeLabel}</span>
+      <span class="pill ${statusClass}">${status}</span>
+      ${flagged ? `<span class="pill" style="border-color:rgba(255,204,102,.45);color:#ffe5b2">⭐ معلّم</span>` : ``}
+    `;
+        }
+
+        function renderBody(q) {
+            let html = `<div class="muted" style="margin-bottom:8px">سؤال رقم ${q.id}</div>`;
+            html += `<div style="font-size:15px; line-height:1.9">${escapeHtml(q.text)}</div>`;
+            if (q.code) {
+                html += `<pre><code>${escapeHtml(q.code)}</code></pre>`;
+            }
+            els.qBody.innerHTML = html;
+        }
+
+        function renderQuestion() {
+            if (filtered.length === 0) {
+                els.qTitle.textContent = "لا توجد أسئلة ضمن هذا الفلتر";
+                els.qMeta.innerHTML = "";
+                els.qBody.innerHTML = `<div class="muted">غيّر الفلتر من الأعلى.</div>`;
+                els.answer.value = "";
+                return;
+            }
+            const q = filtered[idx];
+            els.qTitle.textContent = `(${idx + 1}/${filtered.length}) ${q.topic}`;
+            renderMeta(q);
+            renderBody(q);
+            els.answer.value = state.answers[q.id] || "";
+            highlightActive(q.id);
+            updateStats();
+            updateFlagButton(q.id);
+        }
+
+        function updateFlagButton(id) {
+            const flagged = !!state.flags[id];
+            els.flagBtn.textContent = flagged ? "⭐ إزالة التعليم" : "⭐ تعليم";
+        }
+
+        function renderNav() {
+            els.nav.innerHTML = "";
+            const shown = filtered; // أرقام المعروض
+            els.countBadge.textContent = `المعروض: ${shown.length}`;
+            shown.forEach((q, i) => {
+                const div = document.createElement("div");
+                div.className = "num";
+                div.textContent = q.id;
+                if (getAnswer(q.id)) div.classList.add("answered");
+                if (state.flags[q.id]) div.classList.add("flag");
+                div.onclick = () => { idx = i; renderQuestion(); };
+                els.nav.appendChild(div);
+            });
+            highlightActive(filtered[0]?.id);
+        }
+
+        function highlightActive(id) {
+            [...els.nav.children].forEach(el => {
+                el.classList.remove("active");
+                if (parseInt(el.textContent, 10) === id) el.classList.add("active");
+                // تحديث حالة answered/flag
+                const qid = parseInt(el.textContent, 10);
+                el.classList.toggle("answered", !!getAnswer(qid));
+                el.classList.toggle("flag", !!state.flags[qid]);
+            });
+        }
+
+        function updateStats() {
+            const total = QUESTIONS.length;
+            const answeredCount = QUESTIONS.filter(q => !!getAnswer(q.id)).length;
+            const flaggedCount = Object.keys(state.flags).filter(k => state.flags[k]).length;
+            const pct = total ? Math.round((answeredCount / total) * 100) : 0;
+            els.bar.style.width = pct + "%";
+            els.stats.textContent = `الإجابة على: ${answeredCount}/${total} (${pct}%) • المعلّمة ⭐: ${flaggedCount}`;
+        }
+
+        // ====== أحداث ======
+        els.filter.addEventListener("change", applyFilter);
+
+        els.answer.addEventListener("input", () => {
+            if (filtered.length === 0) return;
+            const q = filtered[idx];
+            state.answers[q.id] = els.answer.value;
+            saveState();
+            highlightActive(q.id);
+            updateStats();
+        });
+
+        els.prevBtn.onclick = () => {
+            if (filtered.length === 0) return;
+            idx = Math.max(0, idx - 1);
+            renderQuestion();
+        };
+        els.nextBtn.onclick = () => {
+            if (filtered.length === 0) return;
+            idx = Math.min(filtered.length - 1, idx + 1);
+            renderQuestion();
+        };
+
+        els.flagBtn.onclick = () => {
+            if (filtered.length === 0) return;
+            const q = filtered[idx];
+            state.flags[q.id] = !state.flags[q.id];
+            saveState();
+            renderQuestion();
+        };
+
+        els.clearOneBtn.onclick = () => {
+            if (filtered.length === 0) return;
+            const q = filtered[idx];
+            delete state.answers[q.id];
+            saveState();
+            renderQuestion();
+        };
+
+        els.exportBtn.onclick = () => {
+            const payload = {
+                exportedAt: new Date().toISOString(),
+                answers: state.answers,
+                flags: state.flags,
+                meta: {
+                    totalQuestions: QUESTIONS.length
+                }
+            };
+            downloadJSON(payload, "exam_answers.json");
+        };
+
+        els.resetBtn.onclick = () => {
+            const ok = confirm("سيتم مسح جميع الإجابات والتعليمات. متأكد؟");
+            if (!ok) return;
+            state = { answers: {}, flags: {}, timer: { enabled: false, seconds: 0, startedAt: null } };
+            saveState();
+            applyFilter();
+        };
+
+        // ====== المظهر (Theme) ======
+        const themeBtn = document.getElementById("themeBtn");
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute("data-theme");
+            const next = current === "light" ? "dark" : "light";
+            document.documentElement.setAttribute("data-theme", next);
+            localStorage.setItem("theme", next);
+        }
+
+        // Initialize Theme
+        const savedTheme = localStorage.getItem("theme");
+        if (savedTheme) {
+            document.documentElement.setAttribute("data-theme", savedTheme);
+        }
+
+        themeBtn.onclick = toggleTheme;
+
+        // ====== المؤقت ======
+        let timerInterval = null;
+
+        function formatHHMMSS(sec) {
+            const h = Math.floor(sec / 3600);
+            const m = Math.floor((sec % 3600) / 60);
+            const s = sec % 60;
+            return [h, m, s].map(x => String(x).padStart(2, "0")).join(":");
+        }
+
+        function startTimer() {
+            state.timer.enabled = true;
+            state.timer.startedAt = Date.now();
+            saveState();
+            els.timerBox.style.display = "inline-block";
+            els.toggleTimerBtn.textContent = "⏱️ إيقاف المؤقت";
+            if (timerInterval) clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                state.timer.seconds += 1;
+                els.timerBox.textContent = formatHHMMSS(state.timer.seconds);
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+            }, 1000);
+        }
+
+        function stopTimer() {
+            state.timer.enabled = false;
+            state.timer.startedAt = null;
+            saveState();
+            els.toggleTimerBtn.textContent = "⏱️ تفعيل المؤقت";
+            if (timerInterval) clearInterval(timerInterval);
+            timerInterval = null;
+        }
+
+        els.toggleTimerBtn.onclick = () => {
+            if (state.timer.enabled) stopTimer();
+            else startTimer();
+        };
+
+        function restoreTimerUI() {
+            if (state.timer.seconds) {
+                els.timerBox.textContent = formatHHMMSS(state.timer.seconds);
+                els.timerBox.style.display = "inline-block";
+            }
+            if (state.timer.enabled) {
+                els.toggleTimerBtn.textContent = "⏱️ إيقاف المؤقت";
+                els.timerBox.style.display = "inline-block";
+                if (!timerInterval) {
+                    timerInterval = setInterval(() => {
+                        state.timer.seconds += 1;
+                        els.timerBox.textContent = formatHHMMSS(state.timer.seconds);
+                        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+                    }, 1000);
+                }
+            }
+        }
+
+        // ====== AI Grading Logic ======
+        const elsAI = {
+
+            gradeBtn: document.getElementById("gradeBtn"),
+            aiFeedback: document.getElementById("aiFeedback"),
+            aiResultContent: document.getElementById("aiResultContent"),
+        };
+
+
+
+        // Grading
+        elsAI.gradeBtn.onclick = async () => {
+            if (filtered.length === 0) return;
+            const q = filtered[idx];
+            const answer = getAnswer(q.id);
+
+            if (!answer) {
+                alert("الرجاء كتابة إجابة أولاً.");
+                return;
+            }
+
+            // UI Loading
+            elsAI.gradeBtn.disabled = true;
+            elsAI.gradeBtn.textContent = "جاري التصحيح...";
+            elsAI.aiFeedback.style.display = "block";
+            elsAI.aiResultContent.innerHTML = "<div class='muted'>جاري التصحيح...</div>";
+
+            try {
+                const prompt = `
+Ant as a strict programming tutor.
+Question Topic: ${q.topic}
+Question Type: ${q.type}
+Question: ${q.text}
+${q.code ? "Code:\n" + q.code : ""}
+
+Student Answer:
+${answer}
+
+Evaluate the answer. Return a JSON object ONLY with no markdown formatting:
+{
+  "score": (0-10),
+  "feedback": "Short constructive feedback in Arabic",
+  "correction": "Correct answer or improved code in Arabic/English"
+}`;
+
+                const response = await fetch('/api/grade', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ prompt })
+                });
+
+                if (!response.ok) {
+                    const errData = await response.json();
+                    throw new Error(errData.error || 'Server Error');
+                }
+
+                const result = await response.json();
+                renderAIResult(result);
+
+            } catch (err) {
+                elsAI.aiResultContent.innerHTML = `<div style="color:var(--danger)">حدث خطأ: ${err.message}</div>`;
+                console.error(err);
+            } finally {
+                elsAI.gradeBtn.disabled = false;
+                elsAI.gradeBtn.textContent = "🤖 تصحيح ";
+            }
+        };
+
+        function renderAIResult(res) {
+            let color = res.score >= 8 ? "var(--ok)" : res.score >= 5 ? "var(--warn)" : "var(--danger)";
+            elsAI.aiResultContent.innerHTML = `
+                <div style="font-size:18px; font-weight:bold; color:${color}; margin-bottom:10px">
+                    الدرجة: ${res.score}/10
+                </div>
+                <div style="margin-bottom:10px">
+                    <strong>الملاحظات:</strong><br>
+                    ${res.feedback}
+                </div>
+                <div>
+                    <strong>التصحيح النموذجي:</strong><br>
+                    <pre style="white-space:pre-wrap; background:rgba(0,0,0,0.2)">${escapeHtml(res.correction)}</pre>
+                </div>
+            `;
+        }
+
+        // ====== أدوات ======
+        function downloadJSON(obj, filename) {
+            const blob = new Blob([JSON.stringify(obj, null, 2)], { type: "application/json" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            URL.revokeObjectURL(url);
+        }
+
+        function escapeHtml(str) {
+            return String(str).replace(/[&<>"']/g, s => ({
+                "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;"
+            }[s]));
+        }
+
+        // ====== تشغيل أولي ======
+        applyFilter();
+        restoreTimerUI();
+    </script>
+</body>
+
+</html>
